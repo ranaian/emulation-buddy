@@ -1,0 +1,69 @@
+const pool = require("../config/db");
+
+async function saveGameAndPlatform(gameTitle, wikiSlug, platformList) {
+  console.log(`Attempting to insert ${gameTitle} into [DB]`);
+  try {
+    const gameRes = await pool.query(
+      `
+    INSERT INTO games (game_name, wikipedia_slug) 
+    VALUES ($1, $2) 
+    ON CONFLICT (game_name) 
+    DO UPDATE SET wikipedia_slug = EXCLUDED.wikipedia_slug
+    RETURNING ID`,
+      [gameTitle, wikiSlug],
+    );
+    console.log(
+      `Game ${gameTitle} inserted into table with ID ${gameRes.rows[0].id}`,
+    );
+    const gameId = gameRes.rows[0].id;
+    if (!platformList || platformList.length === 0) {
+      console.log("No Consoles Found for ", gameTitle);
+      return null;
+    }
+    for (const platformName of platformList) {
+      const consoleRes = await pool.query(
+        `
+        INSERT INTO consoles (console_name)
+        VALUES ($1)
+        ON CONFLICT (console_name)
+        DO UPDATE SET console_name = EXCLUDED.console_name
+        RETURNING ID`,
+        [platformName],
+      );
+      if (consoleRes.rows.length > 0) {
+        const consoleId = consoleRes.rows[0].id;
+        await pool.query(
+          `
+        INSERT INTO games_consoles (game_id, console_id) 
+        VALUES ($1, $2) 
+        ON CONFLICT DO NOTHING`,
+          [gameId, consoleId],
+        );
+      }
+    }
+  } catch (err) {
+    console.error(`[DB Error] : insert failed`);
+    throw err;
+  }
+}
+
+async function findByGameTitle(gameTitle) {
+  const query = `
+        SELECT  g.game_name, c.console_name, c.emulator_name, c.emulator_url
+        FROM games g 
+        JOIN games_consoles gc ON g.id = gc.game_id
+        JOIN consoles c ON gc.console_id = c.id
+        WHERE g.game_name ILIKE $1
+    `;
+  const val = [`%${gameTitle.trim()}%`];
+  const result = await pool.query(query, val);
+  if (result.rows.length > 0) {
+    return result.rows;
+  }
+  return [];
+}
+
+module.exports = {
+  saveGameAndPlatform,
+  findByGameTitle,
+};

@@ -1,0 +1,34 @@
+{
+  "name": "emulation-buddy",
+  "version": "1.0.0",
+  "description": "repository of console emulators",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ranaian/emulation-buddy.git"
+  },
+  "keywords": [
+    "video",
+    "game",
+    "emulation"
+  ],
+  "author": "Ranaian",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ranaian/emulation-buddy/issues"
+  },
+  "homepage": "https://github.com/ranaian/emulation-buddy#readme",
+  "dependencies": {
+    "@types/infobox-parser": "^3.3.4",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "infobox-parser": "^3.6.4",
+    "pg": "^8.20.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
