@@ -10,3 +10,6 @@ web app to find console emulators by video game titles using wikipedia api
 * clean up database
 * clean up code
 * css styling 
+
+### Dmoe
+> https://drive.google.com/file/d/1VHaNwKodbifMGU7UnCAGCUv-SycgFuSB/view?usp=sharing
