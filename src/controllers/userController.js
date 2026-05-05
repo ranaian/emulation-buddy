@@ -1,5 +1,5 @@
 "use strict";
-const model = require("../models/userModel");
+const model = require("../config/userModel");
 async function fetchAllUsers(req, res) {
   try {
     const users = await model.getAllUsers();
@@ -59,9 +59,25 @@ async function createUser(req, res) {
   }
 }
 
+async function isAdmin(req, res) {
+  const email = req.query.email;
+  if (email) {
+    try {
+      const adminStatus = await model.isAdmin(email);
+      res.json({ isAdmin: !!adminStatus });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Server Error");
+    }
+  } else {
+    res.status(400).send("Missing email param");
+  }
+}
+
 module.exports = {
   fetchAllUsers,
   fetchUserById,
   removeUser,
   createUser,
+  isAdmin,
 };
