@@ -4,7 +4,9 @@ web app to find console emulators by video game titles using wikipedia api
 ## LIVE PAGE
 > https://emulation-buddy.onrender.com/
 <hr>
+
 ## Design Choices
+
 * Emulation Buddy is primarily vanilla js , with an ejs frontend to manage the login status. 
 * The backend is postgreSQL because that's what i have the most famililarity with. \
 * The database has four tables of varying utility - Users, Games, Consoles, and Games-Consoles
@@ -34,6 +36,7 @@ web app to find console emulators by video game titles using wikipedia api
 * As mentioned, in the future Emulation-Buddy will require the ability to update and remove bad and incorrect data from the website instead of just from the database, but because scrolling through every game saved in the database isn't a baseline feature of the buddy, I didn't have time to implement this part of database management in the frontend. I imagine I'll implement the same structure of table as I currently use to display the table of Consoles, but with the ability to update entries in the games-consoles table such that game series don't link to the "expandable list" that appears when you accidentally reach a video game series category page, as well as the ability to remove those "expandable list"s from the consoles table
 * Additionally, error handling will be required to make sure that the majority of the time these custodial tools are unneccessary, with more robust handling to ensure that games pages are found before game series pages, as well as correctly saving the wikipedia slug for purposes of either linking to the wikipedia page, or ensuring that the proper title of the game is saved and displayed
 <hr>
+
 ## Currently Known Bugs
 * <s>page does not refresh after auto-posting a query into the database</s>
   * not a bug on the live page
