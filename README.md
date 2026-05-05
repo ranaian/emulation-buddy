@@ -4,7 +4,7 @@ web app to find console emulators by video game titles using wikipedia api
 ## LIVE PAGE
 > https://emulation-buddy.onrender.com/
 ## Currently Known Bugs
-* page does not refresh after auto-posting a query into the database
+* <s>page does not refresh after auto-posting a query into the database</s>
   * not a bug on the live page
 * <s>consoles in database do not relate to each other, multiple entries per console is not ideal </s>
   * 4/22/26 14:55 : typo in "Playstation 3" in seeded data corrected to "PlayStation 3" matching parse data, database relation was always functioning
