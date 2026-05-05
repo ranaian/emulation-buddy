@@ -5,10 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Emulation Buddy</title>
     <link rel="stylesheet" href="style.css" />
-    <script src="script.js" defer></script>
+    <script type="module" src="script.js" defer></script>
   </head>
   <body>
     <h1>Video Game Emulation Buddy</h1>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <div id="g_id_onload"
+        data-client_id="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
+        data-callback="handleCredentialResponse">
+    </div>
+    <div class="g_id_signin" data-type="standard"></div>
     <hr />
     <search >
         <form action="/search" method="get" id="search-form">
@@ -18,7 +24,21 @@
         </form>
     </search>
     <div id="results">
-
+    </div>
+    <button id = "consoles-button" method="get" action= "/consoles">Display All Known Consoles</button>
+    <div id="consoles-list">
+    </div>
+    <div id="edit-modal" class="modal">
+      <div class="modal-content">
+        <h3>Update Console Emulator Information</h3>
+        <p id="modal-console-name"></p>
+        <label>Emulator Name :</label>
+        <input type="text" id="modal-emulator-name" />
+        <label >Emulator URL :</label>
+        <input type="text" id="modal-emulator-url" />
+        <button id="modal-save-button">Save</button>
+        <button id="modal-cancel-button">Cancel</button>
+      </div>
     </div>
     <hr>
     <p>
