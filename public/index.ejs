@@ -10,11 +10,18 @@
   <body>
     <h1>Video Game Emulation Buddy</h1>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <div id="g_id_onload"
-        data-client_id="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
-        data-callback="handleCredentialResponse">
+    <div class="login-container">
+    <div class="google-logo"></div>
+    <a href="/auth/google"><button class="btn">Login with Google</button></a>
     </div>
-    <div class="g_id_signin" data-type="standard"></div>
+    <div id="user-info">
+      <% if (user) { %>
+        <p> Logged in as: <%= user.displayName %> </p>
+        <a href="/auth/logout"><button class="btn">Logout</button></a>
+      <% } else { %>
+        <p> Not logged in </p>
+      <% } %>
+    </div>
     <hr />
     <search >
         <form action="/search" method="get" id="search-form">

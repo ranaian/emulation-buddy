@@ -48,6 +48,16 @@ async function createNewUser([
   return result.rows[0];
 }
 
+async function isAdmin(email) {
+  const queryText = "SELECT is_admin FROM users where email= $1";
+  const values = [email];
+  const result = await pool.query(queryText, values);
+  if (result.rows.length > 0) {
+    return result.rows[0].is_admin;
+  }
+  return false;
+}
+
 module.exports = {
   getAllUsers,
   getOneUserById,
@@ -55,4 +65,5 @@ module.exports = {
   addUser,
   getUserById,
   createNewUser,
+  isAdmin,
 };

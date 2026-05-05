@@ -21,7 +21,7 @@ router.get(
     failureRedirect: "/",
   }),
   (req, res) => {
-    res.redirect(req.session.returnTo);
+    res.redirect("/");
   },
 );
 

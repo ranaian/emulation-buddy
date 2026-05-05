@@ -8,12 +8,33 @@ const consolesButton = document.getElementById("consoles-button");
 const consolesList = document.getElementById("consoles-list");
 
 async function checkLoginStatus() {
-  const response = await fetch("/api/auth/status");
-  const data = await response.json();
-  if (data.loggedIn) {
-    document.body.classList.add("logged-in");
+  try {
+    const response = await fetch("/api/session-check");
+    const data = await response.json();
+
+    console.log("Session Check Data:", data); // DEBUG 1
+
+    if (data.loggedIn && data.user && data.user.email) {
+      console.log("User is logged in, fetching admin status..."); // DEBUG 2
+      const adminRes = await fetch(
+        `/users/is-admin?email=${encodeURIComponent(data.user.email)}`,
+      );
+      const adminData = await adminRes.json();
+
+      if (adminData.isAdmin === true) {
+        console.log("User is an admin."); // debug 2.5
+        document.body.classList.add("logged-in");
+      } else {
+        console.log("User not confirmed admin"); // debug 2.75
+      }
+    } else {
+      console.log("User is NOT logged in according to server."); // DEBUG 3
+    }
+  } catch (error) {
+    console.error("error checking login status: ", error);
   }
 }
+window.onload = checkLoginStatus;
 
 searchForm.addEventListener("submit", async (e) => {
   e.preventDefault();
